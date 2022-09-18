@@ -1,88 +1,229 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home | Code.Meds</title>
 
-<head>
+    <!--<script src="https://code.jquery.com/jquery-3.5.0.js"></script>-->
+    <meta charset="UTF-8" />
 
-<title>CoWin UdaySagar</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-<!--<script src="https://code.jquery.com/jquery-3.5.0.js"></script>-->
+    <meta http-equiv="refresh" content="300" />
 
-<meta http-equiv="refresh" content="300">
+    <meta
+      name="google-site-verification"
+      content="8oASomEqLsN-RY6sAzk7ADWJYPousD8w1NEBmy638e4"
+    />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <script
+      data-ad-client="ca-pub-3071628790379792"
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    ></script>
 
-<script src = "./script.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<style>
-.c { 
-text-align: center; 
-font-size: 20px; 
-padding: 75px;
-}
+    <meta name="title" content="Code.Meds" />
 
-.d {
-text-align: center;
-}
+    <meta
+      name="description"
+      content="A Cowin Vaccine Tracker made for India using the Cowin Open API availed through APISetu"
+    />
 
-.p {
-text-align: auto;
-}
+    <meta
+      name="keywords"
+      content="tripura, covid-19, xixix, senpai covid, sen-pai, code.meds, codemeds"
+    />
 
-th, td {
-  text-align: center;
-}
+    <meta name="theme-color" content="#333" />
 
-#table_info {
-  width: 100%;
-  margin: 50px auto;
-}
+    <link rel="icon" href="./vac.svg" />
 
-</style>
+    <link rel="apple-touch-icon" href="./apple-icon-180.png" />
 
-</head>
+    <link rel="stylesheet" href="./index-styles.css" />
 
+    <link rel="stylesheet" href="./stat-styles.css" />
 
-<body>
-	<center><h1>Cowin Vaccine Tracker</h1></center>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
 
-	
-<form id="form" class = "c">
+    <link rel="manifest" href="/manifest.json" />
 
-<label for="pin"> Enter pincode:</label><br>
-  <input type="text" id="pin" placeholder="Enter your PINCODE" class = "d"><br>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-M5869KKGKT"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-<label for="date-input">Enter date</label><br>
- <input type="date" id="date-input" class="d"><br>
+      gtag("config", "G-M5869KKGKT");
+    </script>
 
-<label for="age"> Enter age:</label><br>
-  <input type="radio" id="age1" name="age" value="18" class = "d"><label for="age">18 - 44</label><br>
-  <input type="radio" id="age2" name="age" value="45" class = "d"><label for="age">45+</label><br>
+    <script src="./script.js"></script>
 
-<label for="dose"> Enter dose:</label><br>
-  <input type="radio" id="dose1" name="dose" value="1" class = "d"><label for="age">Dose 1</label><br>
-  <input type="radio" id="dose2" name="dose" value="2" class = "d"><label for="age">Dose 2</label><br>
+    <!-- <script src="./custom-select.js"></script> -->
 
-</form>
+    <script src="./statscheck.js"></script>
+  </head>
 
+  <body>
+    <div class="topnav" id="myTopnav">
+      <a href="./index.html" class="active"
+        ><img src="./vac.svg" height="20" width="auto" alt="Code.Meds Logo"
+      /></a>
+      <a href="./stat.html">Stats</a>
+      <a href="./DownloadCert.html">Download Certificate</a>
+      <!-- <a id="mode" class="my-btn" onclick="darkMode()">Dark Mode</a> -->
+      <a href="javascript:void(0)" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
 
-<center><button onclick = "gJ()">Check Now</button></center>
+    <center><h1>Cowin Vaccine Tracker</h1></center>
 
+    <hr />
 
-<center><h2>Stats</h2></center>
+    <!-- <button class="my-btn-left"><a href="./stat.html">Covid-19 Statistics</a></button> -->
+    <center>
+      <div class="card" id="formCard">
+        <button
+          onclick="pinMethod()"
+          class="method_buttons"
+          style="
+            border: 2px solid transparent;
+            border-bottom-color: #7d0cda;
+            color: #000;
+          "
+        >
+          By PIN
+        </button>
+        <button
+          onclick="districtMethod()"
+          class="method_buttons"
+          style="border: 2px solid transparent; color: #000"
+        >
+          By District
+        </button>
+        <form id="form">
+          <br />
+          <div
+            class="searchByDistrict custom-select"
+            style="display: none; width: 320px"
+          >
+          <!-- onchange didn't work, see search-districts.js: 397, 386 -->
+            <select id="states" onchange="loadDistricts()"></select>
+          </div>
 
-<p id = "demo"><p>
-	
-<center><table id = "table_info"></table></center>	
-	
-	
-<center><h3>Slots Available?</h3></center>
-<div class="c"><center><a href = "https://selfregistration.cowin.gov.in/">Click Me to Fast Register</a></center></div>	
+          <div
+            class="searchByDistrict custom-select"
+            style="display: none; width: 320px"
+          >
+            <select id="districts"></select>
+          </div>
 
+          <label for="pin" class="searchByPin"> Enter pincode: </label><br />
+          <input
+            type="text"
+            id="pin"
+            placeholder="Please enter a pincode"
+            class="d searchByPin"
+          /><br /><br />
 
+          <label for="date-input"> Select date </label><br />
+          <input
+            type="text"
+            id="date-input"
+            placeholder="Please specify a date"
+            onfocus="(this.type='date')"
+            onblur="(this.type='text')"
+            class="d"
+          /><br /><br />
 
+          <label for="age"> Select age: </label><br />
+          <input type="radio" id="age1" name="age" value="15" class="d" /><label
+            for="age"
+            >15 - 18</label
+          >
+          <input type="radio" id="age1" name="age" value="18" class="d" /><label
+            for="age"
+            >18 - 44</label
+          >
+          <input type="radio" id="age2" name="age" value="45" class="d" /><label
+            for="age"
+            >45+ </label
+          ><br /><br />
 
-<hr>
-<footer>
-<center>Made with Insomnia at AGARTALA by Gintama Fans!</center>
-</footer>
-</body>
+          <label for="dose"> Select dose: </label><br />
+          <input
+            type="radio"
+            id="dose1"
+            name="dose"
+            value="1"
+            class="d"
+          /><label for="age">Dose 1</label>
+          <input
+            type="radio"
+            id="dose2"
+            name="dose"
+            value="2"
+            class="d"
+          /><label for="age">Dose 2</label><br /><br />
+        </form>
+
+        <button class="searchByPin bttn" onclick="gJ()">Search</button>
+        <button
+          class="searchByDistrict bttn"
+          style="display: none"
+          onclick="getCenters()"
+        >
+          Search
+        </button>
+      </div>
+    </center>
+
+    <div
+      class="card searchByDistrict"
+      id="pageContainer"
+      style="display: none"
+    ></div>
+
+    <div class="card searchByPin">
+      <!-- <h2>Stats</h2> -->
+
+      <p id="demo"></p>
+    </div>
+
+    <script src="search-districts.js"></script>
+
+    <h3 style="text-align: center; padding-top: 1rem; padding-bottom: 1rem">
+      To register directly, click the Co-WIN button
+    </h3>
+
+    <div class="floating-action-button">
+      <a href="https://selfregistration.cowin.gov.in/">
+        <img
+          src="covid19logo.jpg"
+          height="70"
+          width="210"
+          alt="CoWin Website Link"
+        />
+      </a>
+    </div>
+
+    <footer>Made with Insomnia at AGARTALA by Gintama Fans!</footer>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js");
+      }
+    </script>
+  </body>
 </html>
