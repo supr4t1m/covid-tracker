@@ -250,7 +250,7 @@ function urlcheck() {
     }
   });
 
-  // currently depricated since csv files doesn't load in remote repositories
+  // currently deprecated since csv files doesn't load in remote repositories
   // so we use stateObj instead
   function csvToJson(url, success) {
     var xht = new XMLHttpRequest();
@@ -397,7 +397,8 @@ function urlcheck() {
     disp.appendChild(tbl);
 
   }
-
+  // TODO:
+  // once the deltas plateau make the totals as sort key
   function addRow(data, StateCode) {
     var tbl = document.getElementById("stats_table");
     var tbody = tbl.tBodies[0];
